@@ -1,18 +1,47 @@
-package com.freer.infusion;
+package com.freer.infusion.module.main;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.freer.infusion.R;
 import com.freer.infusion.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
+
+    private FllowFragment mFllowFragment;
+    private AllFragment mAllFragment;
+
+    private Toolbar mToolbar;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private TabFragmentAdapter mTabFragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 标题栏
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        mTabLayout = (TabLayout) findViewById(R.id.tablayout);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        mFllowFragment = new FllowFragment();
+        mAllFragment = new AllFragment();
+
+        mTabFragmentAdapter = new TabFragmentAdapter(getSupportFragmentManager());
+        mTabFragmentAdapter.addFragment(mFllowFragment, "关注床位");
+        mTabFragmentAdapter.addFragment(mAllFragment, "全部床位");
+
+        mViewPager.setAdapter(mTabFragmentAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
