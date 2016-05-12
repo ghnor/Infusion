@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.freer.infusion.R;
 import com.freer.infusion.base.BaseFragment;
+import com.freer.infusion.entity.DataEntity;
+import com.freer.infusion.util.DialogManger;
+import com.freer.infusion.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.List;
  */
 public class FllowFragment extends BaseFragment {
 
-    private List<String> mDataList = new ArrayList<String>(); // 数据列表
+    private List<DataEntity> mDataList = new ArrayList<DataEntity>(); // 数据列表
     private MainRvAdapter mMainRvAdapter;
 
     @Nullable
@@ -30,10 +33,20 @@ public class FllowFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mMainRvAdapter = new MainRvAdapter());
 
-        mDataList.add("");
-        mDataList.add("");
-        mDataList.add("");
         mMainRvAdapter.setItem(mDataList);
+
+        mMainRvAdapter.setOnRecyclerItemClickListener(new MainRvAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                DialogManger.getMainPopupWindow(getActivity(),
+                        new DialogManger.OnMainPopupOkListener() {
+                            @Override
+                            public void onMessage(int deviceNum, int bedNum, int lowerSpeed, int upperSpeed, int amount) {
+                                ToastUtils.getInstance().showShort(getActivity(), deviceNum+bedNum+lowerSpeed+upperSpeed+amount+"");
+                            }
+                        });
+            }
+        });
 
         return rootView;
     }

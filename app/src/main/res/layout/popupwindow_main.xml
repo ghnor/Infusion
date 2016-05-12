@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatImageView
+            style="@style/ImgvLabelMainPopup"/>
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TvLabelMainPopup"
+            android:text="@string/device_num"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/device_number"
+            style="@style/EtvMainPopup"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatImageView
+            style="@style/ImgvLabelMainPopup" />
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TvLabelMainPopup"
+            android:text="@string/bed_num"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/bed_number"
+            style="@style/EtvMainPopup" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatImageView
+            style="@style/ImgvLabelMainPopup" />
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TvLabelMainPopup"
+            android:text="@string/low_limit_speed"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/lower_speed"
+            style="@style/EtvMainPopup" />
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TvUnitMainPopup"
+            android:text="@string/speed_unit"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatImageView
+            style="@style/ImgvLabelMainPopup" />
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TvLabelMainPopup"
+            android:text="@string/top_limit_speed"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/upper_speed"
+            style="@style/EtvMainPopup" />
+        <TextView
+            style="@style/TvUnitMainPopup"
+            android:text="@string/speed_unit"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatImageView
+            style="@style/ImgvLabelMainPopup" />
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TvLabelMainPopup"
+            android:text="@string/amount"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/amount"
+            style="@style/EtvMainPopup" />
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TvUnitMainPopup"
+            android:text="@string/amount_unit"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent">
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/cancel"
+            style="@style/ImgvLabelMainPopup"
+            app:srcCompat="@drawable/ic_clear"/>
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/TvTitleMainPopup"
+            android:text="@string/popup_title"/>
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/ok"
+            style="@style/ImgvLabelMainPopup"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/ic_done"/>
+    </RelativeLayout>
+
+</LinearLayout>

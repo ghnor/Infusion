@@ -9,7 +9,7 @@ import com.freer.infusion.R;
 /**
  * Created by 2172980000774 on 2016/5/10.
  */
-public class MainViewHolder extends RecyclerView.ViewHolder {
+public class MainRvViewHolder extends RecyclerView.ViewHolder {
 
     View mView;
     TextView mBedNum;
@@ -18,7 +18,7 @@ public class MainViewHolder extends RecyclerView.ViewHolder {
     TextView mSpeedLower;
     TextView mSpeedUpper;
 
-    public MainViewHolder(View itemView) {
+    public MainRvViewHolder(View itemView) {
         super(itemView);
         mView = itemView.findViewById(R.id.view);
         mBedNum = (TextView) itemView.findViewById(R.id.bed_number);
