@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.freer.infusion.R;
 import com.freer.infusion.base.BaseFragment;
+import com.freer.infusion.entity.DataEntity;
+import com.freer.infusion.entity.SocketEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
  * Created by 2172980000774 on 2016/5/10.
  */
 public class AllFragment extends BaseFragment {
-    private List<String> mDataList = new ArrayList<String>(); // 数据列表
+    private List<SocketEntity> mDataList = new ArrayList<SocketEntity>(); // 数据列表
     private MainRvAdapter mMainRvAdapter;
 
     @Nullable
@@ -29,7 +31,6 @@ public class AllFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mMainRvAdapter = new MainRvAdapter());
 
-        mDataList.add("");
         mMainRvAdapter.setItem(mDataList);
 
         return rootView;

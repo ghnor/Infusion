@@ -9,45 +9,50 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.freer.infusion.R;
-import com.freer.infusion.module.service.IBackService;
 import com.freer.infusion.module.service.SocketService;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 2172980000774 on 2016/5/12.
  */
-public class SocketTestActivity extends Activity {
+public class SocketTestActivity extends Activity implements SocketService.IReceiveMessage {
 
     private static final String TAG = "MainActivity";
 
-    private IBackService iBackService;
+    private SocketService.SocketBinder mSocketBinder;
     private ServiceConnection conn = new ServiceConnection() {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            iBackService = null;
 
         }
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-//            iBackService = IBackService.Stub.asInterface(service);
-            ((SocketService.TestBinder) service).sendMessage("hello");
+            mSocketBinder = (SocketService.SocketBinder) service;
+            mSocketBinder.setOnReveiveMessage(SocketTestActivity.this);
         }
     };
 
     private TextView mResultText;
     private EditText mEditText;
     private Intent mServiceIntent;
+
+    @Override
+    public void receiveMessage(String message) {
+        //TODO 接受到服务器数据后，在这里做处理
+    }
 
     class MessageBackReciver extends BroadcastReceiver {
         private WeakReference<TextView> textView;
@@ -95,6 +100,16 @@ public class SocketTestActivity extends Activity {
         mIntentFilter.addAction(SocketService.HEART_BEAT_ACTION);
         mIntentFilter.addAction(SocketService.MESSAGE_ACTION);
 
+
+        final EditText ip = (EditText) findViewById(R.id.ip);
+        final EditText port = (EditText) findViewById(R.id.port);
+        ((Button) findViewById(R.id.set)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSocketBinder.setIpPort(ip.getText().toString(), Integer.valueOf(port.getText().toString()));
+            }
+        });
+
     }
 
     @Override
@@ -116,7 +131,7 @@ public class SocketTestActivity extends Activity {
             case R.id.send:
                 String content = mEditText.getText().toString();
                 try {
-                    boolean isSend = iBackService.sendMessage(content);//Send Content by socket
+                    boolean isSend = mSocketBinder.sendMessage(content);//Send Content by socket
                     Toast.makeText(this, isSend ? "success" : "fail",
                             Toast.LENGTH_SHORT).show();
                     mEditText.setText("");

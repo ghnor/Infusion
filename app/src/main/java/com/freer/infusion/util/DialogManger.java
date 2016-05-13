@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.freer.infusion.R;
+import com.freer.infusion.entity.SocketEntity;
 
 /**
  * Created by 2172980000774 on 2016/5/11.
@@ -29,8 +30,9 @@ public class DialogManger {
         public void onMessage(int deviceNum, int bedNum, int lowerSpeed, int upperSpeed, int amount);
     }
 
-    public static PopupWindow getMainPopupWindow(Context context,
+    public static PopupWindow getMainPopupWindow(Context context, SocketEntity data,
                                                  final OnMainPopupOkListener onMainPopupOkListener) {
+
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View contentView = layoutInflater.inflate(R.layout.popupwindow_main, null);
         View parentView = new View(context);
@@ -67,6 +69,14 @@ public class DialogManger {
         final EditText upperSpeed = (EditText) contentView.findViewById(R.id.upper_speed);
         final EditText amount = (EditText) contentView.findViewById(R.id.amount);
 
+        if (data != null) {
+            deviceNum.setText(data.UxName);
+            bedNum.setText(String.valueOf(data.BedId));
+            lowerSpeed.setText(String.valueOf(data.LowLimitSpeed));
+            upperSpeed.setText(String.valueOf(data.TopLimitSpeed));
+            amount.setText(String.valueOf(data.ClientAction));
+        }
+
         contentView.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,11 +86,16 @@ public class DialogManger {
         contentView.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onMainPopupOkListener.onMessage(Integer.valueOf(deviceNum.getText().toString()),
-                        Integer.valueOf(bedNum.getText().toString()),
-                        Integer.valueOf(lowerSpeed.getText().toString()),
-                        Integer.valueOf(upperSpeed.getText().toString()),
-                        Integer.valueOf(amount.getText().toString()));
+                int nDeviceNum = Integer.valueOf(deviceNum.getText().toString());
+                int nBedNum = Integer.valueOf(bedNum.getText().toString());
+                int nLowerSpeed = Integer.valueOf(lowerSpeed.getText().toString());
+                int nUpperSpeed = Integer.valueOf(upperSpeed.getText().toString());
+                int nAmount = Integer.valueOf(amount.getText().toString());
+                onMainPopupOkListener.onMessage(nDeviceNum,
+                        nBedNum,
+                        nLowerSpeed,
+                        nUpperSpeed,
+                        nAmount);
             }
         });
 

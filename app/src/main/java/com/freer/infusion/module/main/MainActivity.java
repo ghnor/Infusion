@@ -6,17 +6,21 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.freer.infusion.R;
 import com.freer.infusion.base.BaseActivity;
+import com.freer.infusion.entity.DataEntity;
+import com.freer.infusion.entity.SocketEntity;
 import com.freer.infusion.module.Set.SetActivity;
 import com.freer.infusion.module.SocketTestActivity;
 import com.freer.infusion.util.DialogManger;
-import com.freer.infusion.util.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity {
 
@@ -73,6 +77,14 @@ public class MainActivity extends BaseActivity {
         } else if (id == R.id.menu_aboutus) {
             intent.setClass(MainActivity.this, SocketTestActivity.class);
             this.startActivity(intent);
+//            DataEntity dataEntity = new DataEntity();
+//            dataEntity.cate = 0;
+//            SocketEntity socketEntity = new SocketEntity();
+//            socketEntity.LogId = 0;
+//            List<SocketEntity> list = new ArrayList<SocketEntity>();
+//            list.add(socketEntity);
+//            list.add(socketEntity);
+//            Log.e("实体类输出结果", list.toString());
             return true;
         } else if (id == R.id.menu_quit) {
             DialogManger.getQuitDialog(MainActivity.this, new DialogInterface.OnClickListener() {

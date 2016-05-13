@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 import com.freer.infusion.R;
 import com.freer.infusion.base.BaseFragment;
-import com.freer.infusion.util.CommenUtil;
+import com.freer.infusion.util.CommonUtil;
 
 /**
  * Created by 2172980000773 on 2016/5/11.
@@ -60,8 +60,8 @@ public class MyBedFragment extends BaseFragment implements View.OnClickListener,
             for (int j = 0; j < 5; j++) {
                 CheckBox box = new CheckBox(mContext); // 创建按钮对象
                 box.setLayoutParams(lp); // 设置checkBox之间的间距
-                box.setWidth(CommenUtil.dip2px(mContext, 60)); // 设置CheckBox的宽度
-                box.setHeight(CommenUtil.dip2px(mContext, 60)); // 设置CheckBox的高度
+                box.setWidth(CommonUtil.dip2px(mContext, 60)); // 设置CheckBox的宽度
+                box.setHeight(CommonUtil.dip2px(mContext, 60)); // 设置CheckBox的高度
                 box.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT)); // 设置选择按钮为透明
                 box.setId(i * 5 + j + 1); // 设置按钮的id
                 box.setText("" + (i * 5 + j + 1)); // 设置按钮的字

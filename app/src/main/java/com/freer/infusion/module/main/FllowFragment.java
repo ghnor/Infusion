@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.freer.infusion.R;
 import com.freer.infusion.base.BaseFragment;
 import com.freer.infusion.entity.DataEntity;
+import com.freer.infusion.entity.SocketEntity;
 import com.freer.infusion.util.DialogManger;
 import com.freer.infusion.util.ToastUtils;
 
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class FllowFragment extends BaseFragment {
 
-    private List<DataEntity> mDataList = new ArrayList<DataEntity>(); // 数据列表
+    private List<SocketEntity> mDataList = new ArrayList<SocketEntity>(); // 数据列表
     private MainRvAdapter mMainRvAdapter;
 
     @Nullable
@@ -33,12 +34,19 @@ public class FllowFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mMainRvAdapter = new MainRvAdapter());
 
+        SocketEntity socketEntity = new SocketEntity();
+        socketEntity.UxName = "0304";
+        socketEntity.BedId = 0;
+        socketEntity.LowLimitSpeed = 1;
+        socketEntity.TopLimitSpeed = 100;
+        socketEntity.ClientAction = 100;
+        mDataList.add(socketEntity);
         mMainRvAdapter.setItem(mDataList);
 
         mMainRvAdapter.setOnRecyclerItemClickListener(new MainRvAdapter.OnRecyclerItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                DialogManger.getMainPopupWindow(getActivity(),
+            public void onItemClick(int position, SocketEntity data) {
+                DialogManger.getMainPopupWindow(getActivity(), data,
                         new DialogManger.OnMainPopupOkListener() {
                             @Override
                             public void onMessage(int deviceNum, int bedNum, int lowerSpeed, int upperSpeed, int amount) {

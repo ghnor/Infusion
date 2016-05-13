@@ -31,6 +31,7 @@
         <activity android:name=".module.Set.BedSetActivity"></activity>
         <activity android:name=".module.SocketTestActivity"></activity>
         <service android:name=".module.service.SocketService"></service>
+        <service android:name=".module.service.SocketService"></service>
     </application>
 
 </manifest>

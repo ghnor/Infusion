@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * Created by 2172980000773 on 2016/5/11.
  */
-public class CommenUtil {
+public class CommonUtil {
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)

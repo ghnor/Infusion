@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.freer.infusion.R;
 import com.freer.infusion.entity.DataEntity;
+import com.freer.infusion.entity.SocketEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +19,14 @@ import java.util.List;
 public class MainRvAdapter extends RecyclerView.Adapter<MainRvViewHolder> {
 
     public interface OnRecyclerItemClickListener {
-        public void onItemClick(int position);
+        public void onItemClick(int position, SocketEntity data);
     }
 
     public MainRvAdapter() {
-        mDataList = new ArrayList<DataEntity>();
+        mDataList = new ArrayList<SocketEntity>();
     }
 
-    private List<DataEntity> mDataList;
+    private List<SocketEntity> mDataList;
 
     private OnRecyclerItemClickListener mOnRecyclerItemClickListener;
 
@@ -33,16 +34,17 @@ public class MainRvAdapter extends RecyclerView.Adapter<MainRvViewHolder> {
         this.mOnRecyclerItemClickListener = onRecyclerItemClickListener;
     }
 
-    public void setItem(List<DataEntity> dataList) {
-        for (DataEntity dataLocal : mDataList) {
-            for (DataEntity dataServer : dataList){
-                if (dataServer.UxName.equals(dataLocal.UxName)) {
-                    mDataList.set(mDataList.indexOf(dataLocal), dataServer);
-                } else {
-                    mDataList.add(dataServer);
-                }
-            }
-        }
+    public void setItem(List<SocketEntity> dataList) {
+//        for (SocketEntity dataLocal : mDataList) {
+//            for (SocketEntity dataServer : dataList){
+//                if (dataServer.UxName.equals(dataLocal.UxName)) {
+//                    mDataList.set(mDataList.indexOf(dataLocal), dataServer);
+//                } else {
+//                    mDataList.add(dataServer);
+//                }
+//            }
+//        }
+        mDataList.addAll(dataList);
         notifyDataSetChanged();
     }
 
@@ -61,7 +63,7 @@ public class MainRvAdapter extends RecyclerView.Adapter<MainRvViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnRecyclerItemClickListener.onItemClick(position);
+                mOnRecyclerItemClickListener.onItemClick(position, mDataList.get(position));
             }
         });
     }
