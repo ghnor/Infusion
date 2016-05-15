@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">Infusion</string>
+
+    <!--设置界面-->
+    <string name="string_set_sound">提示音</string>
+    <string name="string_set_shark">震 动</string>
+    <string name="string_sound_set">设置声音</string>
+    <string name="string_shark_set">设置震动</string>
+    <string name="string_fast_warning">滴速过快提示</string>
+    <string name="string_slow_warning">滴速过慢提示</string>
+    <string name="string_stop_warning">滴液停止提示</string>
+    <string name="string_low_power_warning">低电量提示</string>
+    <string name="string_set_edition">版本设置</string>
+    <string name="string_set_bed">床位管理</string>
+    <string name="string_set_server">服务器设置</string>
+    <string name="string_back_to_main_activity">返回主界面</string>
+    <string name="string_mode_select">模式选择</string>
+    <string name="string_mode_standard">标准模式</string>
+    <string name="string_mode_optional">自选模式</string>
+    <string name="string_ip_address">IP地址:</string>
+    <string name="string_edit_ip_address">请输入IP地址</string>
+    <string name="string_port">端口号：</string>
+    <string name="string_edit_port">请输入端口号</string>
+    <string name="string_all">全部</string>
+    <string name="string_cancel">取消</string>
+    <string name="string_ok">确定</string>
+
+    <!--首页-->
+    <string name="app_quit">确定退出程序吗?</string>
+    <string name="app_ok">退出</string>
+    <string name="app_cancel">取消</string>
+    <!--首页弹窗-->
+    <string name="device_num">设备号</string>
+    <string name="bed_num">床位号</string>
+    <string name="top_limit_speed">上限滴速</string>
+    <string name="low_limit_speed">下限滴速</string>
+    <string name="amount">总容量</string>
+    <string name="speed_unit">滴/分钟</string>
+    <string name="amount_unit">毫升(ml)</string>
+    <string name="popup_title">床位参数设置</string>
 </resources>
