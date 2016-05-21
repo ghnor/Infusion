@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".module.main.MainActivity">
     <item
+        android:id="@+id/menu_bed"
+        android:title="床位管理"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_setting"
         android:title="系统设置"
         app:showAsAction="never" />

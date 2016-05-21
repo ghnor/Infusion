@@ -7,6 +7,12 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+
 /**
  * Created by 2172980000774 on 2016/4/27.
  */
@@ -61,6 +67,46 @@ public class NetUtils {
         intent.setComponent(cm);
         intent.setAction("android.intent.action.VIEW");
         activity.startActivityForResult(intent, 0);
+    }
+
+    /**
+     * 获取IP前缀
+     * @return
+     */
+    public static String getLocAddrIndex(){
+
+        String str = getLocIpAddress();
+
+        if(!str.equals("")){
+            return str.substring(0, str.lastIndexOf(".")+1);
+        }
+        return null;
+    }
+
+    /**
+     * 获取本地ip地址
+     */
+    public static String getLocIpAddress(){
+
+        try {
+            Enumeration en = NetworkInterface.getNetworkInterfaces();
+            // 遍历所用的网络接口
+            while (en.hasMoreElements()) {
+                NetworkInterface networks = (NetworkInterface) en.nextElement();
+                // 得到每一个网络接口绑定的所有ip
+                Enumeration address = networks.getInetAddresses();
+                // 遍历每一个接口绑定的所有ip
+                while (address.hasMoreElements()) {
+                    InetAddress ip = (InetAddress) address.nextElement();
+                    if (!ip.isLoopbackAddress() && ip instanceof Inet4Address) {
+                        return ip.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            System.out.println("获取本机IP地址失败");
+        }
+        return "";
     }
 
 }

@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Infusion</string>
 
+    <!--界面标题-->
+    <string name="string_title_main">U-2000输液监护</string>
+    <string name="string_title_set">系统设置</string>
+    <string name="string_title_about">关于我们</string>
+    <string name="string_title_bed">床位管理</string>
+
     <!--设置界面-->
     <string name="string_set_sound">提示音</string>
     <string name="string_set_shark">震 动</string>
@@ -29,6 +35,9 @@
     <string name="app_quit">确定退出程序吗?</string>
     <string name="app_ok">退出</string>
     <string name="app_cancel">取消</string>
+    <string name="app_retry_title">连接服务器失败</string>
+    <string name="app_retry_action">重试</string>
+
     <!--首页弹窗-->
     <string name="device_num">设备号</string>
     <string name="bed_num">床位号</string>
@@ -38,4 +47,23 @@
     <string name="speed_unit">滴/分钟</string>
     <string name="amount_unit">毫升(ml)</string>
     <string name="popup_title">床位参数设置</string>
+
+    <!--首页列表-->
+    <string name="bed_unit">%s床</string>
+    <string name="total_unit">%sml</string>
+
+    <!--关于我们-->
+    <string name="string_version_code_title">版本号：</string>
+    <string name="string_version_code_content">V1.1</string>
+    <string name="string_publish_date_title">发布日期：</string>
+    <string name="string_publish_date_content">2016-05-19</string>
+    <string name="string_contact_information_title">联系方式：</string>
+    <string name="string_contact_information_content">0571-88952736</string>
+    <string name="string_email_address_title">邮箱地址：</string>
+    <string name="string_email_address_content">zc@freer-hz.com</string>
+    <string name="string_web_address_title">网址：</string>
+    <string name="string_web_address_content">http:www.freer-hz.com</string>
+    <string name="string_address_title">地址：</string>
+    <string name="string_address_content">浙江省杭州市滨江区\n东信大道66号E座206室</string>
+    <string name="string_consult_phone_number">咨询：0571-88952736</string>
 </resources>

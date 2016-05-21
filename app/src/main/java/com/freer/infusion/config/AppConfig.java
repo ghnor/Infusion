@@ -91,7 +91,7 @@ public class AppConfig {
      * 获取声音（过慢）提示是否打开
      * @return
      */
-    public boolean isSoundFastSlow() {
+    public boolean isSoundSlow() {
         if (SPUtils.contains(SP_SOUND_SLOW)) {
             soundSlow = (boolean) SPUtils.get(SP_SOUND_SLOW, soundSlow);
             return soundSlow;
@@ -112,7 +112,7 @@ public class AppConfig {
      * 获取声音（停止）提示是否打开
      * @return
      */
-    public boolean isSoundStopt() {
+    public boolean isSoundStop() {
         if (SPUtils.contains(SP_SOUND_STOP)) {
             soundStop = (boolean) SPUtils.get(SP_SOUND_STOP, soundStop);
             return soundStop;
@@ -133,7 +133,7 @@ public class AppConfig {
      * 获取声音（低电）提示是否打开
      * @return
      */
-    public boolean isSoundLowPowert() {
+    public boolean isSoundLowPower() {
         if (SPUtils.contains(SP_SOUND_LOW_POWER)) {
             soundLowPower = (boolean) SPUtils.get(SP_SOUND_LOW_POWER, soundLowPower);
             return soundLowPower;
@@ -342,5 +342,12 @@ public class AppConfig {
             return followBedMap;
         }
         return followBedMap;
+    }
+
+    /**
+     * 是否是调试版本
+     */
+    public boolean isDebug() {
+        return true;
     }
 }

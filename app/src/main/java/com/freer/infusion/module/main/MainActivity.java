@@ -1,5 +1,6 @@
 package com.freer.infusion.module.main;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,17 +13,25 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.freer.infusion.R;
 import com.freer.infusion.base.BaseActivity;
+import com.freer.infusion.entity.SocketEntity;
 import com.freer.infusion.model.SocketDataProcess;
+import com.freer.infusion.module.Set.BedSetActivity;
 import com.freer.infusion.module.Set.SetActivity;
-import com.freer.infusion.module.SocketTestActivity;
 import com.freer.infusion.module.service.SocketService;
+import com.freer.infusion.module.us.AboutUsActivity;
 import com.freer.infusion.util.DialogManger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity implements SocketService.IReceiveMessage {
 
@@ -34,7 +43,8 @@ public class MainActivity extends BaseActivity implements SocketService.IReceive
     private ViewPager mViewPager; //标签页
     private TabFragmentAdapter mTabFragmentAdapter; //标签页适配器
 
-    private SocketDataProcess mProcess = new SocketDataProcess();
+    private Dialog mProgressDialog = null; //转圈对话框
+    private Dialog mRetryDialog = null; //连接重试对话框
 
     private MessageBackReciver mReciver;
 
@@ -56,34 +66,53 @@ public class MainActivity extends BaseActivity implements SocketService.IReceive
         public void onServiceConnected(ComponentName name, IBinder service) {
             mSocketBinder = (SocketService.SocketBinder) service;
             mSocketBinder.setOnReveiveMessage(MainActivity.this);
-            mSocketBinder.setIpPort("192.168.1.5", 2020);
+//            mSocketBinder.setIpPort("192.168.1.113", 2020);
+            mSocketBinder.startWork();
+            mFllowFragment.setBinder(mSocketBinder);
+            mAllFragment.setBinder(mSocketBinder);
         }
     };
 
-    class MessageBackReciver extends BroadcastReceiver {
+    @Override
+    public void receiveMessage(List<SocketEntity> followBedList, List<SocketEntity> allBedList) {
+        Log.d("主界面中收到了数据", ""+followBedList.toString()+allBedList.toString());
+        mFllowFragment.setData(followBedList);
+        mAllFragment.setData(allBedList);
+    }
 
-        public MessageBackReciver() {}
+    class MessageBackReciver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(SocketService.HEART_BEAT_ACTION)) {
-            } else {
-                String message = intent.getStringExtra("message");
-                mProcess.processData(message);
-                mFllowFragment.setData(mProcess.getFollowBed());
-                mAllFragment.setData(mProcess.getAllBed());
+
+            } else if (action.equals(SocketService.CONN_CHECK_ACTION)) {
+                mProgressDialog.dismiss();
+            } else if (action.equals(SocketService.MESSAGE_ACTION)){
+                List<SocketEntity> followList = intent.getParcelableArrayListExtra(SocketDataProcess.FOLLOW_BED);
+                if (mFllowFragment != null) {
+                    mFllowFragment.setData(followList);
+                }
+                List<SocketEntity> allList = intent.getParcelableArrayListExtra(SocketDataProcess.ALL_BED);
+                if (mAllFragment != null) {
+                    mAllFragment.setData(allList);
+                }
+                SocketDataProcess.notificate(followList);
+            } else if (action.equals(SocketService.CONN_ERROR_ACTION)) {
+                mProgressDialog.dismiss();
+                mRetryDialog.show();
             }
-        };
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("onCreate");
         // 标题栏
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.string_title_main);
         setSupportActionBar(mToolbar);
 
         mTabLayout = (TabLayout) findViewById(R.id.tablayout);
@@ -99,18 +128,39 @@ public class MainActivity extends BaseActivity implements SocketService.IReceive
         mViewPager.setAdapter(mTabFragmentAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
+        // 注册广播
         mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
-
         mReciver = new MessageBackReciver();
-
-        mServiceIntent = new Intent(this, SocketService.class);
-
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(SocketService.HEART_BEAT_ACTION);
         mIntentFilter.addAction(SocketService.MESSAGE_ACTION);
-
+        mIntentFilter.addAction(SocketService.CONN_CHECK_ACTION);
+        mIntentFilter.addAction(SocketService.CONN_ERROR_ACTION);
         mLocalBroadcastManager.registerReceiver(mReciver, mIntentFilter);
+
+        // 启动service
+        mServiceIntent = new Intent(this, SocketService.class);
+        startService(mServiceIntent);
         bindService(mServiceIntent, conn, BIND_AUTO_CREATE);
+
+        mRetryDialog = DialogManger.getRetryDialog(this,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        mSocketBinder.setIpPort("192.168.1.113", 2020);
+                        mSocketBinder.startWork();
+                        mProgressDialog.show();
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        stopWork();
+                    }
+                });
+
+        mProgressDialog = DialogManger.getProgressDialog(this);
+        mProgressDialog.show();
     }
 
     @Override
@@ -140,24 +190,30 @@ public class MainActivity extends BaseActivity implements SocketService.IReceive
             this.startActivity(intent);
             return true;
         } else if (id == R.id.menu_aboutus) {
-            intent.setClass(MainActivity.this, SocketTestActivity.class);
+            intent.setClass(MainActivity.this, AboutUsActivity.class);
             this.startActivity(intent);
             return true;
         } else if (id == R.id.menu_quit) {
             DialogManger.getQuitDialog(MainActivity.this, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    MainActivity.this.finish();
+                    stopWork();
                 }
             }).show();
             return true;
+        } else if (id == R.id.menu_bed) {
+            intent.setClass(MainActivity.this, BedSetActivity.class);
+            this.startActivity(intent);
+            return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void receiveMessage(String message) {
-
+    /**
+     * 手动关闭APP
+     */
+    public void stopWork() {
+        MainActivity.this.stopService(mServiceIntent);
+        MainActivity.this.finish();
     }
 }

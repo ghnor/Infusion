@@ -44,11 +44,17 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:minWidth">@dimen/etv_minwidth</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
     <style name="ImgvLabelMainPopup">
         <item name="android:layout_width">@dimen/imgv_normal</item>
         <item name="android:layout_height">@dimen/imgv_normal</item>
         <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="ImgvLabelMainPopup.Comfirm" parent="ImgvLabelMainPopup">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">4dp</item>
     </style>
     <style name="TvUnitMainPopup">
         <item name="android:layout_width">wrap_content</item>
@@ -61,10 +67,52 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/size_font_bigger</item>
+    </style>
+    <style name="ItemMainPopup">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/activity_margin_normal</item>
+        <item name="android:paddingRight">@dimen/activity_margin_normal</item>
     </style>
     <!--底部滑入滑出-->
     <style name="SlideBottom">
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+    <!--横向分割线-->
+    <style name="SplitLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+    <!--设置界面-->
+    <style name="ItemSetAct">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+    <style name="ImgvSetAct">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="TvTitleSetAct">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">32dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/size_font_normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!--ing对话框-->
+    <style name="ProgressDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
 </resources>

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +21,7 @@ import android.widget.TextView;
 import com.freer.infusion.R;
 import com.freer.infusion.base.BaseActivity;
 import com.freer.infusion.config.AppConfig;
-import com.freer.infusion.util.SPUtils;
 import com.freer.infusion.util.ToastUtils;
-
-import org.w3c.dom.Text;
-
-import java.util.zip.Inflater;
 
 public class SetActivity extends BaseActivity implements OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -44,7 +38,6 @@ public class SetActivity extends BaseActivity implements OnClickListener, Compou
     private TextView mTxtvEdition; // 版本的内容信息
     private TextView mTxtvBed; // 床位选择的信息
     private TextView mTxtvServer; // 连接的服务器信息
-    private Button mBtnBack; // 返回首页按钮
 
     /* 声音和震动设置Dialog */
     private Dialog mDialog; // 弹出框
@@ -81,7 +74,8 @@ public class SetActivity extends BaseActivity implements OnClickListener, Compou
     }
 
     private void initView() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_set);
+        mToolbar.setTitle(R.string.string_title_set);
         setSupportActionBar(mToolbar);
 
         mLinearSound = (LinearLayout) findViewById(R.id.linear_set_sound);
@@ -92,7 +86,6 @@ public class SetActivity extends BaseActivity implements OnClickListener, Compou
         mTxtvEdition = (TextView) findViewById(R.id.txtv_set_edition);
         mTxtvBed = (TextView) findViewById(R.id.txtv_set_bed);
         mTxtvServer = (TextView) findViewById(R.id.txtv_set_server);
-        mBtnBack = (Button) findViewById(R.id.btn_set_back);
     }
 
     private void initEvent() {
@@ -105,7 +98,6 @@ public class SetActivity extends BaseActivity implements OnClickListener, Compou
         mLinearEdition.setOnClickListener(this);
         mLinearBed.setOnClickListener(this);
         mLinearServer.setOnClickListener(this);
-        mBtnBack.setOnClickListener(this);
     }
 
     /**
@@ -126,9 +118,9 @@ public class SetActivity extends BaseActivity implements OnClickListener, Compou
         mTxtvDialogTitle.setText(strTitleResource);
         if (strTitleResource == R.string.string_sound_set){
             mSwitchDialogFast.setChecked(mAppConfig.isSoundFast());
-            mSwitchDialogSLow.setChecked(mAppConfig.isSoundFastSlow());
-            mSwitchDialogStop.setChecked(mAppConfig.isSoundStopt());
-            mSwitchDialogPower.setChecked(mAppConfig.isSoundLowPowert());
+            mSwitchDialogSLow.setChecked(mAppConfig.isSoundSlow());
+            mSwitchDialogStop.setChecked(mAppConfig.isSoundStop());
+            mSwitchDialogPower.setChecked(mAppConfig.isSoundLowPower());
         } else if(strTitleResource == R.string.string_shark_set) {
             mSwitchDialogFast.setChecked(mAppConfig.isSharkFast());
             mSwitchDialogSLow.setChecked(mAppConfig.isSharkSlow());
@@ -230,10 +222,6 @@ public class SetActivity extends BaseActivity implements OnClickListener, Compou
             case R.id.linear_set_server:
                 // 点击服务器设置按钮
                 initServerSet();
-                break;
-            case R.id.btn_set_back:
-                // 点击返回主界面按钮
-                finish();
                 break;
             case R.id.btn_set_cancel:
                 // 点击Dialog上的取消键(关闭弹出框)

@@ -1,16 +1,14 @@
 package com.freer.infusion.module.Set;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.SwitchCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
@@ -28,7 +26,7 @@ import java.util.HashMap;
 public class FollowFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
 
     private Context mContext;
-    private ArrayList<CheckBox> mCheckList; // 存放所有的Check对象
+    private ArrayList<SwitchCompat> mCheckList; // 存放所有的Check对象
 
     private View mRootView;
     private LinearLayout mLinearMyBed;
@@ -69,20 +67,23 @@ public class FollowFragment extends BaseFragment implements View.OnClickListener
             linearLayout.setGravity(Gravity.CENTER_HORIZONTAL); // 设置按钮居中显示
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(10, 10, 10, 10);
+            lp.setMargins(10, 10, 10, 10); // 上下左右都间距10dp
+            lp.height = CommonUtil.dip2px(mContext, 30); // 高度为30dp
+            lp.width = CommonUtil.dip2px(mContext, 60); // 宽度为60dp
             for (int j = 0; j < 5; j++) {
-                CheckBox box = new CheckBox(mContext); // 创建按钮对象
-                box.setLayoutParams(lp); // 设置checkBox之间的间距
-                box.setWidth(CommonUtil.dip2px(mContext, 60)); // 设置CheckBox的宽度
-                box.setHeight(CommonUtil.dip2px(mContext, 60)); // 设置CheckBox的高度
-                box.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT)); // 设置选择按钮为透明
-                box.setId(i * 5 + j + 1); // 设置按钮的id
-                box.setText("" + (i * 5 + j + 1)); // 设置按钮的字
-                box.setBackgroundResource(R.drawable.select_round_btn_blue);
-                box.setOnCheckedChangeListener(this); // 选择按钮
-                box.setChecked(hashMap.containsKey("" + (i * 5 + j + 1))); // 根据本地存储的数据来显示CheckBox是否选择
-                linearLayout.addView(box);
-                mCheckList.add(box);
+                SwitchCompat switchCompat = new SwitchCompat(mContext); // 创建按钮对象
+                switchCompat.setLayoutParams(lp); // 设置checkBox之间的间距
+                switchCompat.setThumbDrawable(null);
+                switchCompat.setId(i * 5 + j + 1); // 设置按钮的id
+                switchCompat.setText("" + (i * 5 + j + 1)); // 设置按钮的字
+                switchCompat.setTextColor(getResources().getColor(R.color.blue_light)); // 设置字体颜色
+                switchCompat.setGravity(Gravity.CENTER); // 文字居中显示
+                switchCompat.setBackgroundResource(R.drawable.select_round_btn_blue);
+                switchCompat.setOnCheckedChangeListener(this); // 选择按钮
+                switchCompat.setOnCheckedChangeListener(this); // 状态改变的监听
+                switchCompat.setChecked(hashMap.containsKey("" + (i * 5 + j + 1))); // 根据本地存储的数据来显示CheckBox是否选择
+                linearLayout.addView(switchCompat);
+                mCheckList.add(switchCompat);
             }
             mLinearMyBed.addView(linearLayout, linearParams);
         }
@@ -105,8 +106,8 @@ public class FollowFragment extends BaseFragment implements View.OnClickListener
             case R.id.btn_follow_all:
                 // 选择全部
                 if (mCheckList != null){
-                    for (CheckBox checkBox: mCheckList) {
-                        checkBox.setChecked(true);
+                    for (SwitchCompat switchCompat: mCheckList) {
+                        switchCompat.setChecked(true);
                     }
                 }
 
@@ -114,8 +115,8 @@ public class FollowFragment extends BaseFragment implements View.OnClickListener
             case R.id.btn_follow_cancel:
                 // 选择取消
                 if (mCheckList != null){
-                    for (CheckBox checkBox: mCheckList) {
-                        checkBox.setChecked(false);
+                    for (SwitchCompat switchCompat: mCheckList) {
+                        switchCompat.setChecked(false);
                     }
                 }
                 break;
@@ -127,6 +128,12 @@ public class FollowFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        if(isChecked) {
+            buttonView.setTextColor(getResources().getColor(R.color.white));
+        } else {
+            buttonView.setTextColor(getResources().getColor(R.color.blue_light));
+        }
 
     }
 }

@@ -1,5 +1,7 @@
 package com.freer.infusion.util;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
@@ -8,6 +10,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +21,10 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 
 import com.freer.infusion.R;
+import com.freer.infusion.config.AppConfig;
 import com.freer.infusion.entity.SocketEntity;
 
 /**
@@ -30,14 +36,14 @@ public class DialogManger {
      * 主界面,床位信息设置弹窗
      */
     public interface OnMainPopupOkListener {
-        public void onMessage(int deviceNum, int bedNum, int lowerSpeed, int upperSpeed, int amount);
+        public void onMessage(SocketEntity data);
     }
 
-    public static PopupWindow getMainPopupWindow(Context context, SocketEntity data,
+    public static PopupWindow getMainPopupWindow(Context context, final SocketEntity data,
                                                  final OnMainPopupOkListener onMainPopupOkListener) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View contentView = layoutInflater.inflate(R.layout.popupwindow_main, null);
+        ViewGroup contentView = (ViewGroup) layoutInflater.inflate(R.layout.popupwindow_main, null);
         View parentView = new View(context);
         final PopupWindow mainPopupWindow = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -66,11 +72,17 @@ public class DialogManger {
             }
         });
 
-        final EditText deviceNum = (EditText) contentView.findViewById(R.id.device_number);
-        final EditText bedNum = (EditText) contentView.findViewById(R.id.bed_number);
-        final EditText lowerSpeed = (EditText) contentView.findViewById(R.id.lower_speed);
-        final EditText upperSpeed = (EditText) contentView.findViewById(R.id.upper_speed);
-        final EditText amount = (EditText) contentView.findViewById(R.id.amount);
+        final AppCompatEditText deviceNum = (AppCompatEditText) contentView.findViewById(R.id.device_number);
+        final AppCompatEditText bedNum = (AppCompatEditText) contentView.findViewById(R.id.bed_number);
+        final AppCompatEditText lowerSpeed = (AppCompatEditText) contentView.findViewById(R.id.lower_speed);
+        final AppCompatEditText upperSpeed = (AppCompatEditText) contentView.findViewById(R.id.upper_speed);
+        final AppCompatEditText amount = (AppCompatEditText) contentView.findViewById(R.id.amount);
+        deviceNum.setFocusable(false);
+        deviceNum.setBackgroundDrawable(null);
+        if (AppConfig.getInstance().getMode() == 0) {
+            bedNum.setFocusable(false);
+            bedNum.setBackgroundDrawable(null);
+        }
 
         if (data != null) {
             deviceNum.setText(data.UxName);
@@ -94,11 +106,13 @@ public class DialogManger {
                 int nLowerSpeed = Integer.valueOf(lowerSpeed.getText().toString());
                 int nUpperSpeed = Integer.valueOf(upperSpeed.getText().toString());
                 int nAmount = Integer.valueOf(amount.getText().toString());
-                onMainPopupOkListener.onMessage(nDeviceNum,
-                        nBedNum,
-                        nLowerSpeed,
-                        nUpperSpeed,
-                        nAmount);
+
+                data.BedId = nBedNum;
+                data.LowLimitSpeed = nLowerSpeed;
+                data.TopLimitSpeed = nUpperSpeed;
+                data.ClientAction = nAmount;
+
+                onMainPopupOkListener.onMessage(data);
             }
         });
 
@@ -113,13 +127,39 @@ public class DialogManger {
      */
     public static AlertDialog getQuitDialog(Context context, DialogInterface.OnClickListener onClickListener) {
         return new AlertDialog.Builder(context)
-//                .setTitle(context.getResources().getString(R.string.app_quit))
                 .setMessage(context.getResources().getString(R.string.app_quit))
                 .setNegativeButton(context.getResources().getString(R.string.app_cancel), null)
                 .setPositiveButton(context.getResources().getString(R.string.app_ok), onClickListener)
                 .create();
     }
 
+    /**
+     * 重试连接对话框
+     * @param context
+     * @param onRetryListener
+     * @param onQuitListener
+     * @return
+     */
+    public static AlertDialog getRetryDialog(Context context,
+                                             DialogInterface.OnClickListener onRetryListener,
+                                             DialogInterface.OnClickListener onQuitListener) {
+        return new AlertDialog.Builder(context)
+                .setMessage(context.getResources().getString(R.string.app_retry_title))
+                .setNegativeButton(context.getResources().getString(R.string.app_retry_action), onRetryListener)
+                .setPositiveButton(context.getResources().getString(R.string.app_ok), onQuitListener)
+                .create();
+    }
 
+    /**
+     * 进度条对话框
+     * @param context
+     * @return
+     */
+    public static Dialog getProgressDialog(Context context) {
+        Dialog dialog = new Dialog(context, R.style.ProgressDialog);
+        dialog.setContentView(new ProgressBar(context));
+
+        return dialog;
+    }
 
 }

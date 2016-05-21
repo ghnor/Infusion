@@ -34,6 +34,7 @@ public class BedSetActivity extends BaseActivity implements View.OnClickListener
 
     private void initView() {
         mToolbarBed = (Toolbar) findViewById(R.id.toolbar_bed);
+        mToolbarBed.setTitle(R.string.string_title_bed);
         setSupportActionBar(mToolbarBed);
 
         mTablayoutBed = (TabLayout) findViewById(R.id.tablayout_bed);

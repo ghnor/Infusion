@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         style="@style/AppBarLayoutStyle">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_set"
             app:navigationIcon="?homeAsUpIndicator"
             style="@style/ToolbarStyle"/>
     </android.support.design.widget.AppBarLayout>
@@ -26,13 +26,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
             <!--最上面的图片-->
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/bg_about_us"/>
 
             <View
                 android:layout_width="match_parent"
@@ -44,9 +44,10 @@
                 android:id="@+id/linear_set_sound"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:orientation="horizontal"
                 android:clickable="true"
-                android:padding="5dp"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -83,9 +84,10 @@
                 android:id="@+id/linear_set_shark"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:orientation="horizontal"
                 android:clickable="true"
-                android:padding="5dp"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -122,9 +124,10 @@
                 android:id="@+id/linear_set_edition"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:orientation="horizontal"
                 android:clickable="true"
-                android:padding="5dp"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -162,10 +165,12 @@
                 android:id="@+id/linear_set_bed"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:orientation="horizontal"
                 android:clickable="true"
-                android:padding="5dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -195,17 +200,20 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/gray"/>
+                android:background="@color/gray"
+                android:visibility="gone"/>
 
             <!--服务器设置按钮-->
             <LinearLayout
                 android:id="@+id/linear_set_server"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:orientation="horizontal"
                 android:clickable="true"
-                android:padding="5dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -235,25 +243,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <!--返回主界面按钮-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/linearLayout">
-
-        <Button
-            android:id="@+id/btn_set_back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/string_back_to_main_activity"
-            android:textColor="@color/white"
-            android:background="@drawable/select_round_btn_red"/>
-
-    </LinearLayout>
 
 </LinearLayout>

@@ -11,7 +11,8 @@
         style="@style/AppBarLayoutStyle">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            style="@style/ToolbarStyle"/>
+            style="@style/ToolbarStyle">
+        </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout"
             android:layout_width="match_parent"

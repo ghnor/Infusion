@@ -5,16 +5,21 @@
     <!--字体-->
     <dimen name="size_font_title">20sp</dimen>
     <dimen name="size_font_big">16sp</dimen>
-    <dimen name="size_font_bigger">17sp</dimen>
+    <dimen name="size_font_bigger">18sp</dimen>
     <dimen name="size_font_large">22sp</dimen>
-    <dimen name="size_font_normal">15sp</dimen>
+    <dimen name="size_font_normal">16sp</dimen>
     <dimen name="size_font_small">14sp</dimen>
     <dimen name="size_font_mini">12sp</dimen>
     <!--图片-->
     <dimen name="imgv_normal">32dp</dimen>
+    <dimen name="imgv_big">40sp</dimen>
+    <dimen name="imgv_large">48dp</dimen>
 
     <!--首页弹窗-->
     <dimen name="tv_label_leftmargin">40dp</dimen>
     <dimen name="etv_minwidth">64dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 
 </resources>

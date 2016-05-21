@@ -7,16 +7,8 @@
     android:padding="@dimen/activity_margin_normal"
     android:background="@drawable/item_bg">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:max="100"
-        android:progress="50"
-        android:progressDrawable="@drawable/progressbar_green"/>
-
     <RelativeLayout
+        android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <View
@@ -72,9 +64,20 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             tools:background="@color/black"
+            android:padding="2dp"
             android:layout_toRightOf="@id/speed_upper"
             android:layout_marginLeft="@dimen/activity_margin"/>
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/rl"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:progress="50"
+        android:progressDrawable="@drawable/progressbar_green"/>
 
 </RelativeLayout>

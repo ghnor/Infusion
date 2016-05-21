@@ -1,10 +1,13 @@
 package com.freer.infusion.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by 2172980000774 on 2016/5/13.
  */
-public class SocketEntity {
-    public int LogId = 0; //主键
+public class SocketEntity implements Parcelable {
+    public int LogId; //主键
     public String RFId; //中继id
     public String UxId; //设备编号
     public String UxName; //设备自定义名称
@@ -27,6 +30,76 @@ public class SocketEntity {
     public String WarningMSG; //设备异常，不当操作等异常信息提醒
     public String TempBedID; //
     public int IsWorkingStartUx; //
+
+    protected SocketEntity(Parcel in) {
+        LogId = in.readInt();
+        RFId = in.readString();
+        UxId = in.readString();
+        UxName = in.readString();
+        BedId = in.readInt();
+        CurrSpeed = in.readInt();
+        TopLimitSpeed = in.readInt();
+        LowLimitSpeed = in.readInt();
+        DropAmount = in.readInt();
+        WorkingState = in.readInt();
+        WarnProcess = in.readInt();
+        RealProcess = in.readInt();
+        ClientAction = in.readInt();
+        State = in.readInt();
+        Key = in.readString();
+        LastRealProcess = in.readInt();
+        StopWarningCount = in.readInt();
+        LimitWarningCount = in.readInt();
+        SettingSpeed = in.readInt();
+        BatteryCapacity = in.readInt();
+        WarningMSG = in.readString();
+        TempBedID = in.readString();
+        IsWorkingStartUx = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(LogId);
+        dest.writeString(RFId);
+        dest.writeString(UxId);
+        dest.writeString(UxName);
+        dest.writeInt(BedId);
+        dest.writeInt(CurrSpeed);
+        dest.writeInt(TopLimitSpeed);
+        dest.writeInt(LowLimitSpeed);
+        dest.writeInt(DropAmount);
+        dest.writeInt(WorkingState);
+        dest.writeInt(WarnProcess);
+        dest.writeInt(RealProcess);
+        dest.writeInt(ClientAction);
+        dest.writeInt(State);
+        dest.writeString(Key);
+        dest.writeInt(LastRealProcess);
+        dest.writeInt(StopWarningCount);
+        dest.writeInt(LimitWarningCount);
+        dest.writeInt(SettingSpeed);
+        dest.writeInt(BatteryCapacity);
+        dest.writeString(WarningMSG);
+        dest.writeString(TempBedID);
+        dest.writeInt(IsWorkingStartUx);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<SocketEntity> CREATOR = new Creator<SocketEntity>() {
+        @Override
+        public SocketEntity createFromParcel(Parcel in) {
+            return new SocketEntity(in);
+        }
+
+        @Override
+        public SocketEntity[] newArray(int size) {
+            return new SocketEntity[size];
+        }
+    };
 
     @Override
     public String toString() {
