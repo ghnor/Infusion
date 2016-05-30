@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            style="@style/ItemMainPopup">
+            <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/icon_ux_name"
+                style="@style/ImgvLabelMainPopup"/>
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TvLabelMainPopup"
+                android:text="@string/device_num"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/device_number"
+                style="@style/EtvMainPopup"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray"/>
+
+        <RelativeLayout
+            style="@style/ItemMainPopup">
+            <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/icon_bed_id"
+                style="@style/ImgvLabelMainPopup" />
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TvLabelMainPopup"
+                android:text="@string/bed_num"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/bed_number"
+                style="@style/EtvMainPopup" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray"/>
+
+        <RelativeLayout
+            style="@style/ItemMainPopup">
+            <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/icon_low_speed_limit"
+                style="@style/ImgvLabelMainPopup" />
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TvLabelMainPopup"
+                android:text="@string/low_limit_speed"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/lower_speed"
+                style="@style/EtvMainPopup" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TvUnitMainPopup"
+                android:text="@string/speed_unit"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray"/>
+
+        <RelativeLayout
+            style="@style/ItemMainPopup">
+            <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/icon_up_speed_limit"
+                style="@style/ImgvLabelMainPopup" />
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TvLabelMainPopup"
+                android:text="@string/top_limit_speed"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/upper_speed"
+                style="@style/EtvMainPopup" />
+            <TextView
+                style="@style/TvUnitMainPopup"
+                android:text="@string/speed_unit"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray"/>
+
+        <RelativeLayout
+            style="@style/ItemMainPopup">
+            <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/icon_total"
+                style="@style/ImgvLabelMainPopup" />
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TvLabelMainPopup"
+                android:text="@string/amount"/>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/amount"
+                style="@style/EtvMainPopup" />
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TvUnitMainPopup"
+                android:text="@string/amount_unit"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent">
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/cancel"
+                style="@style/ImgvLabelMainPopup.Comfirm"
+                app:srcCompat="@drawable/ic_clear"/>
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TvTitleMainPopup"
+                android:text="@string/popup_title"/>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/ok"
+                style="@style/ImgvLabelMainPopup.Comfirm"
+                android:layout_alignParentRight="true"
+                app:srcCompat="@drawable/ic_done"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

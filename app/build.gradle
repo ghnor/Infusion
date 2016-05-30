@@ -7,9 +7,21 @@ android {
     defaultConfig {
         applicationId "com.freer.infusion"
         minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1
+        targetSdkVersion 22
+        versionCode 2
         versionName "1.0"
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+
+        manifestPlaceholders = [
+                GETUI_APP_ID : "NGLznWIDG66oH36cW1cXh3",
+                GETUI_APP_KEY : "AyQoNmLUuV68ZcoL1M7uf9",
+                GETUI_APP_SECRET : "iq1OKSQglK994JziAE49P9",
+                PACKAGE_NAME : applicationId
+        ]
     }
     buildTypes {
         release {
@@ -20,9 +32,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.getui:sdk:2.8.1.0'
+    compile 'com.getui:ext:2.0.3'
+    compile files('libs/360update-5.0.2.jar')
+    compile 'com.tencent.bugly:crashreport:latest.release'
 }
