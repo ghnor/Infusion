@@ -1,5 +1,6 @@
 package com.freer.infusion.module.main;
 
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -13,6 +14,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -245,5 +247,9 @@ public class MainActivity extends BaseActivity implements SocketService.IReceive
     public void stopWork() {
         MainActivity.this.stopService(mServiceIntent);
         MainActivity.this.finish();
+        ActivityManager activityMgr= (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+        activityMgr.killBackgroundProcesses(getPackageName());
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
     }
 }
